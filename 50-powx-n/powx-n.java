@@ -1,28 +1,19 @@
 class Solution {
     public double myPow(double x, int n) {
-        if (n == 0) return 1.0;
-    
-        if (n == Integer.MIN_VALUE) {
-            return myPow(1 / x, -(n + 1)) * (1 / x);
-        }
-        
-        if (n < 0) {
-            x = 1 / x;
-            n = -n;
-        }
-        
-        double result = 1.0;
-        double current = x;
-        
-        while (n > 0) {
-            if ((n & 1) == 1) {
-                result *= current;
+        double ans=1.00;
+        long nn=n;
+        if(n<0) nn=-nn;
+        while(nn>0){
+            if(nn%2==0){
+                x=x*x;
+                nn=nn/2;
             }
-
-            current *= current;
-            n = n >> 1;
+            else{
+               ans=ans*x;
+                nn=nn-1;
+            }
         }
-        
-        return result;
+        if(n<0) ans=1.0/ans;
+        return ans;
     }
 }
