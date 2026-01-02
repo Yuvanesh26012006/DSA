@@ -1,38 +1,29 @@
 class Solution {
-    public static String check(String s,int n){
-        int i;
-        for(i=0;i<n-1;i++){
-            if(s.charAt(i)=='0' && s.charAt(i+1)=='0'){
-                return "";
-            }
+    public void backTrack(int n,StringBuilder sb,List<String> ans){
+        if(sb.length()==n){
+            ans.add(sb.toString());
+            return;
         }
-      
-        return s;
+        if(sb.length()==0 || sb.charAt(sb.length()-1)=='1'){
+            sb.append('0');
+            backTrack(n,sb,ans);
+            sb.deleteCharAt(sb.length()-1);
+
+            sb.append('1');
+            backTrack(n,sb,ans);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        else{
+             sb.append('1');
+            backTrack(n,sb,ans);
+            sb.deleteCharAt(sb.length()-1);
+        }
+       
     }
-    public static List<String> validStrings(int n) {
-        List<String> l=new ArrayList<>();
-        for(int i=0;i<Math.pow(2,n);i++){
-            StringBuilder sb=new StringBuilder(Integer.toBinaryString(i));
-            if(sb.length()<n){
-                  
-                while(sb.length()<n){
-                    
-                    
-                    sb.insert(0,'0');
-                }
-               
-               
-            }
-             else{
-                     
-            }
-            String s=sb.toString();
-            String ans=check(s,n);
-            if(!ans.equals("")){
-                l.add(ans);
-            }
-            
-        }      
-        return l;  
+    public List<String> validStrings(int n) {
+        List<String> ans=new ArrayList<>();
+         backTrack(n,new StringBuilder(),ans);
+         return ans;
+        
     }
 }
